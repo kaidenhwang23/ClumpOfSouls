@@ -1,7 +1,12 @@
 //python -m SimpleHTTPServer 8000
 
 let player;
+var penguino;
 let start = false;
+
+function preload(){
+  penguino = loadAnimation("assets/penguino0001.png", "assets/penguino0003")
+}
 
 function setup(){
   createCanvas(800, 800);
@@ -69,8 +74,7 @@ class Player {
   }
 
   drawPlayer(){
-    fill("black")
-    ellipse(this.x+=this.xspeed, this.y+=this.yspeed, this.size)
+    animation(penguino, x, y);
   }
 
   boundaries(){
