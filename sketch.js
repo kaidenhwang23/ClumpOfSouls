@@ -1,16 +1,18 @@
 //python -m SimpleHTTPServer 8000
 
 let player;
-var penguino;
 let start = false;
+var rightpenguino;
+var leftpenguino;
 
 function preload(){
-  penguino = loadAnimation("assets/penguino0001.png", "assets/penguino0003")
+  rightpenguino = loadAnimation("assets/rightpenguino0001.png", "assets/rightpenguino0003.png")
+  leftpenguino = loadAnimation("assets/leftpenguino0001.png", "assets/leftpenguino0003.png")
 }
 
 function setup(){
   createCanvas(800, 800);
-  player = new Player(400,400,25,0,0)
+  player = new Player(400,400,0.1,0,0)
   rectMode(CENTER);
 
 }
@@ -41,18 +43,35 @@ function keyPressed(){
     if(keyCode == UP_ARROW){
       player.yspeed = -3
       player.xspeed = 0
+      rightpenguino.playing = true
+      rightpenguino.visible = true
+      leftpenguino.playing = false
+      leftpenguino.visible = false
+
     }
     if(keyCode == DOWN_ARROW){
       player.yspeed = 3
       player.xspeed = 0
+      rightpenguino.playing = false
+      rightpenguino.visible = false
+      leftpenguino.playing = true
+      leftpenguino.visible = true
     }
     if(keyCode == RIGHT_ARROW){
       player.xspeed = 3
       player.yspeed = 0
+      rightpenguino.playing = true
+      rightpenguino.visible = true
+      leftpenguino.playing = false
+      leftpenguino.visible = false
     }
     if(keyCode == LEFT_ARROW){
       player.xspeed = -3
       player.yspeed = 0
+      rightpenguino.playing = false
+      rightpenguino.visible = false
+      leftpenguino.playing = true
+      leftpenguino.visible = true
     }
   }
   if(keyCode == 32){
@@ -74,7 +93,10 @@ class Player {
   }
 
   drawPlayer(){
-    animation(penguino, x, y);
+    scale(this.size,this.size)
+    rightpenguino.playing = false
+    rightpenguino.visible = false
+    animation(leftpenguino, this.x+=this.xspeed, this.y+=this.yspeed)
   }
 
   boundaries(){
