@@ -2,12 +2,16 @@
 
 let player;
 let start = false;
+let anim = [];
+let i = 0
 var rightpenguino;
 var leftpenguino;
+
 
 function preload(){
   rightpenguino = loadAnimation("assets/rightpenguino0001.png", "assets/rightpenguino0003.png")
   leftpenguino = loadAnimation("assets/leftpenguino0001.png", "assets/leftpenguino0003.png")
+  anim = [rightpenguino, leftpenguino]
 }
 
 function setup(){
@@ -43,6 +47,7 @@ function keyPressed(){
     if(keyCode == UP_ARROW){
       player.yspeed = -3
       player.xspeed = 0
+      i = 0
       rightpenguino.playing = true
       rightpenguino.visible = true
       leftpenguino.playing = false
@@ -52,6 +57,7 @@ function keyPressed(){
     if(keyCode == DOWN_ARROW){
       player.yspeed = 3
       player.xspeed = 0
+      i = 1
       rightpenguino.playing = false
       rightpenguino.visible = false
       leftpenguino.playing = true
@@ -60,6 +66,7 @@ function keyPressed(){
     if(keyCode == RIGHT_ARROW){
       player.xspeed = 3
       player.yspeed = 0
+      i = 0
       rightpenguino.playing = true
       rightpenguino.visible = true
       leftpenguino.playing = false
@@ -68,6 +75,7 @@ function keyPressed(){
     if(keyCode == LEFT_ARROW){
       player.xspeed = -3
       player.yspeed = 0
+      i = 1
       rightpenguino.playing = false
       rightpenguino.visible = false
       leftpenguino.playing = true
@@ -90,26 +98,24 @@ class Player {
     this.yspeed = yspeed
     this.x = x
     this.y = y
+    this.animation = anim
   }
 
   drawPlayer(){
-    scale(this.size,this.size)
-    rightpenguino.playing = false
-    rightpenguino.visible = false
-    animation(leftpenguino, this.x+=this.xspeed, this.y+=this.yspeed)
+    animation(anim[i], this.x+=this.xspeed, this.y+=this.yspeed)
   }
 
   boundaries(){
-    if(this.x > 810){
+    if(this.x > 820){
       this.x = -10
     }
-    if(this.x < -10){
+    if(this.x < -20){
       this.x = 810
     }
-    if(this.y < -10){
+    if(this.y < -20){
       this.y = 810
     }
-    if(this.y > 810){
+    if(this.y > 820){
       this.y = -10
     }
   }
