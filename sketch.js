@@ -6,6 +6,8 @@ let anim = [];
 let i = 0
 var rightpenguino;
 var leftpenguino;
+let egg;
+let eggsy = [];
 
 
 function preload(){
@@ -19,7 +21,9 @@ function setup(){
   player = new Player(400,400,0.1,0,0)
   rectMode(CENTER);
 
-}
+  }
+
+
 
 function draw(){
 	background(220);
@@ -38,9 +42,13 @@ function draw(){
   if(start == true){
     player.drawPlayer();
     player.boundaries();
+    for(k = 0; k < 30; k++){
+      egg = new Egg(random(10,width-10), random(10,height-10), random(5,15), random(10,20))
+      eggsy.push(egg)
+      eggsy[k].draweggs();
 }
 }
-
+}
 
 function keyPressed(){
   if(start == true){
@@ -121,14 +129,16 @@ class Player {
   }
 }
 
-  class Food {
-    constructor(x,y,size){
+  class Egg {
+    constructor(x,y,width,height){
       this.x = x
       this.y = y
-      this.size = size
+      this.width = width
+      this.height = height
     }
 
-    drawFood(){
-
+    draweggs(){
+      fill("black")
+      rect(this.x, this.y, this.width, this.height)
     }
   }
