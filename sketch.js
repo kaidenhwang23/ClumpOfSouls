@@ -6,13 +6,14 @@ let anim = [];
 let i = 0
 var rightpenguino;
 var leftpenguino;
+var turnegg;
 let egg;
 let eggsy = [];
-
 
 function preload(){
   rightpenguino = loadAnimation("assets/rightpenguino0001.png", "assets/rightpenguino0003.png")
   leftpenguino = loadAnimation("assets/leftpenguino0001.png", "assets/leftpenguino0003.png")
+  turnegg = loadAnimation("assets/egg0001.png", "assets/egg0004.png")
   anim = [rightpenguino, leftpenguino]
 }
 
@@ -42,13 +43,23 @@ function draw(){
   if(start == true){
     player.drawPlayer();
     player.boundaries();
+    player.collisionCheck();
     for(k = 0; k < 30; k++){
-      egg = new Egg(random(10,width-10), random(10,height-10), random(5,15), random(10,20))
+      egg = new Egg(random(10,width-10), random(10,height-10), 20, 22)
       eggsy.push(egg)
       eggsy[k].draweggs();
+    }
+    for(b = 0; b < eggsy.length; b++){
+      eggsy.collide(player,begone(eggsy[k]))
+    }
+    function begone(egg){
+      remove(egg)
+    }
+
 }
+
 }
-}
+
 
 function keyPressed(){
   if(start == true){
@@ -127,6 +138,10 @@ class Player {
       this.y = -10
     }
   }
+
+  collisionCheck(){
+
+  }
 }
 
   class Egg {
@@ -138,7 +153,10 @@ class Player {
     }
 
     draweggs(){
-      fill("black")
-      rect(this.x, this.y, this.width, this.height)
+      animation(turnegg, this.x, this.y)
     }
+
+
+
+
   }
