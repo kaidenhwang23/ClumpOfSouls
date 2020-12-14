@@ -49,12 +49,12 @@ function draw(){
       eggsy.push(egg)
       eggsy[k].draweggs();
     }
-    for(b = 0; b < eggsy.length; b++){
-      eggsy.collide(player,begone())
-    }
-    function begone(){
-      remove(eggsy[k])
-    }
+    // for(b = 0; b < eggsy.length; b++){
+    //   eggsy.collide(player,begone())
+    // }
+    // function begone(){
+    //   remove(eggsy[k])
+    // }
 
 }
 
