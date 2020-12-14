@@ -50,10 +50,10 @@ function draw(){
       eggsy[k].draweggs();
     }
     for(b = 0; b < eggsy.length; b++){
-      eggsy.collide(player,begone(eggsy[k]))
+      eggsy.collide(player,begone())
     }
-    function begone(egg){
-      remove(egg)
+    function begone(){
+      remove(eggsy[k])
     }
 
 }
