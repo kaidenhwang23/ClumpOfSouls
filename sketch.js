@@ -10,6 +10,8 @@ var turnegg;
 let egg;
 let eggsy = [];
 let img;
+let score = 0;
+let timer = 60;
 
 function preload(){
   rightpenguino = loadAnimation("assets/rightpenguino0001.png", "assets/rightpenguino0003.png")
@@ -48,12 +50,30 @@ function draw(){
   if(start == true){
     player.drawPlayer();
     player.boundaries();
-    player.collisionCheck();
-    for(k = 0; k < 30; k++){
-      egg = new Egg(random(10,width-10), random(10,height-10), 20, 22)
+    fill("white")
+    stroke("black")
+    rect(400, 40, 220,40)
+    stroke(0, 208, 255)
+    fill(0, 208, 255)
+    textSize(24)
+    text("Score: " + score, 405, 47.5)
+    text("Timer: " + timer, 305, 47.5)
+    for(k = 0; k < 5; k++){
+      egg = new Egg(random(10,width-10), random(80,height-10), 20, 22)
       eggsy.push(egg)
       eggsy[k].draweggs();
       collisionCheck(player, eggsy[k])
+      if(score >= 5){
+        for(l = 0; l < 30; l++){
+          egg = new Egg(random(10,width-10), random(80,height-10), 20, 22)
+          eggsy.push(egg)
+          eggsy[l].draweggs2();
+          eggsy[l].bounds()
+          eggsy[l].x += random(-5,5)
+          eggsy[l].y += random(-5,5)
+          collisionCheck(player, eggsy[l])
+        }
+      }
 }
 }
 
@@ -64,6 +84,7 @@ function collisionCheck(obj1, obj2){
     if(Math.abs(obj1.y - obj2.y) - obj1.h/2 - obj2.h/2 < 0){
       obj2.x = 5000
       obj2.y = 5000
+      score += 1
 
     }
   }
@@ -148,9 +169,7 @@ class Player {
     }
   }
 
-  collisionCheck(){
 
-  }
 }
 
   class Egg {
@@ -165,6 +184,24 @@ class Player {
       animation(turnegg, this.x, this.y)
     }
 
+    draweggs2(){
+      animation(turnegg, this.x, this.y)
+    }
+
+    bounds(){
+      if(this.x > 800){
+        this.x = 0
+      }
+      if(this.x < 0){
+        this.x = 800
+      }
+      if(this.y < 0){
+        this.y = 800
+      }
+      if(this.y > 800){
+        this.y = 0
+    }
+}
 
 
 
