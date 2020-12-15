@@ -9,25 +9,30 @@ var leftpenguino;
 var turnegg;
 let egg;
 let eggsy = [];
+let img;
 
 function preload(){
   rightpenguino = loadAnimation("assets/rightpenguino0001.png", "assets/rightpenguino0003.png")
   leftpenguino = loadAnimation("assets/leftpenguino0001.png", "assets/leftpenguino0003.png")
   turnegg = loadAnimation("assets/egg0001.png", "assets/egg0004.png")
+  img = loadImage("assets/icebackground.jpg")
   anim = [rightpenguino, leftpenguino]
 }
 
 function setup(){
   createCanvas(800, 800);
-  player = new Player(400,400,0.1,0,0)
+  player = new Player(400,400,50,50,0,0)
   rectMode(CENTER);
+
+
+
 
   }
 
 
 
 function draw(){
-	background(220);
+	image(img, 0,0)
   if(start == false){
     fill("green")
     rect(400,400,350,100)
@@ -48,18 +53,21 @@ function draw(){
       egg = new Egg(random(10,width-10), random(10,height-10), 20, 22)
       eggsy.push(egg)
       eggsy[k].draweggs();
+      collisionCheck(player, eggsy[k])
+}
+}
+
+}
+
+function collisionCheck(obj1, obj2){
+  if(Math.abs(obj1.x - obj2.x) - obj1.w/2 - obj2.w/2 < 0){
+    if(Math.abs(obj1.y - obj2.y) - obj1.h/2 - obj2.h/2 < 0){
+      obj2.x = 5000
+      obj2.y = 5000
+
     }
-    // for(b = 0; b < eggsy.length; b++){
-    //   eggsy.collide(player,begone())
-    // }
-    // function begone(){
-    //   remove(eggsy[k])
-    // }
-
+  }
 }
-
-}
-
 
 function keyPressed(){
   if(start == true){
@@ -111,8 +119,9 @@ function keyPressed(){
 
 
 class Player {
-  constructor(x,y,size,xspeed,yspeed){
-    this.size = size
+  constructor(x,y,w,h,xspeed,yspeed){
+    this.w = w;
+    this.h = h;
     this.xspeed = xspeed
     this.yspeed = yspeed
     this.x = x
@@ -145,11 +154,11 @@ class Player {
 }
 
   class Egg {
-    constructor(x,y,width,height){
+    constructor(x,y,w,h){
       this.x = x
       this.y = y
-      this.width = width
-      this.height = height
+      this.w = w
+      this.h = h
     }
 
     draweggs(){
