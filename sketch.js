@@ -11,7 +11,7 @@ let egg;
 let eggsy = [];
 let img;
 let score = 0;
-let timer = 60;
+let timer = 1800;
 
 function preload(){
   rightpenguino = loadAnimation("assets/rightpenguino0001.png", "assets/rightpenguino0003.png")
@@ -52,12 +52,27 @@ function draw(){
     player.boundaries();
     fill("white")
     stroke("black")
-    rect(400, 40, 220,40)
+    rect(400, 40, 250,40)
     stroke(0, 208, 255)
     fill(0, 208, 255)
-    textSize(24)
-    text("Score: " + score, 405, 47.5)
-    text("Timer: " + timer, 305, 47.5)
+    textSize(26)
+    text("Score: " + score, 415, 50)
+    text("Timer: " + round(timer/60), 295, 50)
+    if(frameCount % 60 == 0 && timer > 0){
+      timer = timer -60
+    }
+    if(timer == 0){
+      noLoop()
+      textSize(100)
+      stroke("black")
+      strokeWeight(5)
+      text("Game Over", 150, 400)
+      textSize(80)
+      text("Score: " + score, 250, 500)
+      console.log("done")
+    }
+
+
     for(k = 0; k < 5; k++){
       egg = new Egg(random(10,width-10), random(80,height-10), 20, 22)
       eggsy.push(egg)
@@ -89,6 +104,7 @@ function collisionCheck(obj1, obj2){
     }
   }
 }
+
 
 function keyPressed(){
   if(start == true){
