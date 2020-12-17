@@ -1,4 +1,3 @@
-//python -m SimpleHTTPServer 8000
 
 let player;
 let start = false;
@@ -12,6 +11,8 @@ let eggsy = [];
 let img;
 let score = 0;
 let timer = 1800;
+let eating;
+let background;
 
 function preload(){
   rightpenguino = loadAnimation("assets/rightpenguino0001.png", "assets/rightpenguino0003.png")
@@ -19,13 +20,18 @@ function preload(){
   turnegg = loadAnimation("assets/egg0001.png", "assets/egg0004.png")
   img = loadImage("assets/icebackground.jpg")
   anim = [rightpenguino, leftpenguino]
+  soundFormats('wav')
+  eating = loadSound('eating.wav')
+  background = loadSound("backgroun.wav")
 }
 
 function setup(){
   createCanvas(800, 800);
   player = new Player(400,400,50,50,0,0)
   rectMode(CENTER);
-
+  masterVolume(0.5)
+  background.loop()
+  background.play()
 
 
 
@@ -52,12 +58,12 @@ function draw(){
     player.boundaries();
     fill("white")
     stroke("black")
-    rect(400, 40, 250,40)
+    rect(400, 40, 260,40)
     stroke(0, 208, 255)
     fill(0, 208, 255)
     textSize(26)
-    text("Score: " + score, 415, 50)
-    text("Timer: " + round(timer/60), 295, 50)
+    text("Score: " + score, 410, 50)
+    text("Timer: " + round(timer/60), 285, 50)
     if(frameCount % 60 == 0 && timer > 0){
       timer = timer -60
     }
@@ -100,6 +106,7 @@ function collisionCheck(obj1, obj2){
       obj2.x = 5000
       obj2.y = 5000
       score += 1
+      eating.play()
 
     }
   }
