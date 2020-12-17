@@ -29,7 +29,6 @@ function setup(){
   createCanvas(800, 800);
   player = new Player(400,400,50,50,0,0)
   rectMode(CENTER);
-  masterVolume(0.5)
   background.loop()
   background.play()
 
@@ -62,7 +61,7 @@ function draw(){
     stroke(0, 208, 255)
     fill(0, 208, 255)
     textSize(26)
-    text("Score: " + score, 410, 50)
+    text("Score: " + score, 405, 50)
     text("Timer: " + round(timer/60), 285, 50)
     if(frameCount % 60 == 0 && timer > 0){
       timer = timer -60
@@ -76,6 +75,7 @@ function draw(){
       textSize(80)
       text("Score: " + score, 250, 500)
       console.log("done")
+      background.pause()
     }
 
 
@@ -116,7 +116,7 @@ function collisionCheck(obj1, obj2){
 function keyPressed(){
   if(start == true){
     if(keyCode == UP_ARROW){
-      player.yspeed = -3
+      player.yspeed = -5
       player.xspeed = 0
       i = 0
       rightpenguino.playing = true
@@ -126,7 +126,7 @@ function keyPressed(){
 
     }
     if(keyCode == DOWN_ARROW){
-      player.yspeed = 3
+      player.yspeed = 5
       player.xspeed = 0
       i = 1
       rightpenguino.playing = false
@@ -135,7 +135,7 @@ function keyPressed(){
       leftpenguino.visible = true
     }
     if(keyCode == RIGHT_ARROW){
-      player.xspeed = 3
+      player.xspeed = 5
       player.yspeed = 0
       i = 0
       rightpenguino.playing = true
@@ -144,7 +144,7 @@ function keyPressed(){
       leftpenguino.visible = false
     }
     if(keyCode == LEFT_ARROW){
-      player.xspeed = -3
+      player.xspeed = -5
       player.yspeed = 0
       i = 1
       rightpenguino.playing = false
